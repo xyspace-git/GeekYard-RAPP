@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Receipt</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Create New Receipt</h1>
+            <a href="/" class="view-all-link">&larr; Back to Main Menu</a>
+        </div>
+        
+        <form action="/generate" method="post">
+            
+            <fieldset>
+                <legend>Customer Details</legend>
+                <div class="form-group">
+                    <label for="customer_name">Billed to:</label>
+                    <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name" required>
+                </div>
+                 <div class="form-group">
+                    <label for="customer_email">Email:</label>
+                    <input type="email" id="customer_email" name="customer_email" placeholder="customer@example.com">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Items & Services</legend>
+                <div id="item-list">
+                    </div>
+                <button type="button" id="add-item-btn" class="btn btn-secondary">+ Add Item / Service</button>
+            </fieldset>
+
+            <fieldset>
+    <legend>Payment</legend>
+     <div class="form-group">
+        <label for="payment_method">Payment method:</label>
+        <input type="text" id="payment_method" name="payment_method" value="Cash">
+    </div>
+    
+    <div class="form-group">
+        <label for="custom_note">Note (Optional):</label>
+        <textarea id="custom_note" name="custom_note" rows="2">Thank you for choosing us!</textarea>
+    </div>
+</fieldset>
+
+            <button type="submit" class="btn btn-primary">Generate Receipt</button>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

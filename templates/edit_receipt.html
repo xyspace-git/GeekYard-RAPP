@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Receipt #{{ receipt.receipt_no }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Edit Receipt #{{ receipt.receipt_no }}</h1>
+            <a href="/receipts" class="view-all-link">&larr; Back to List</a>
+        </div>
+        
+        <form action="{{ url_for('update_receipt', receipt_no=receipt.receipt_no) }}" method="post">
+            
+            <fieldset>
+                <legend>Customer Details</legend>
+                <div class="form-group">
+                    <label for="customer_name">Billed to:</label>
+                    <input type="text" id="customer_name" name="customer_name" value="{{ receipt.customer_name }}" required>
+                </div>
+                 <div class="form-group">
+                    <label for="customer_email">Email:</label>
+                    <input type="email" id="customer_email" name="customer_email" value="{{ receipt.customer_email }}">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Items & Services</legend>
+                <div id="item-list">
+                    {% for item in receipt.line_items %}
+                    <div class="item-row">
+                        <select name="item_type" class="item-type-select">
+                            <option value="service" {% if item.unit_value == item.hours %}selected{% endif %}>Service</option>
+                            <option value="item" {% if item.unit_value == item.quantity %}selected{% endif %}>Item</option>
+                        </select>
+                        <input type="text" name="item_desc" placeholder="Description" value="{{ item.description }}" required>
+                        <div class="input-wrapper hours-input">
+                            <input type="number" name="item_hours" class="small-input" placeholder="Hours" step="0.1" value="{{ item.hours if item.hours else '' }}">
+                        </div>
+                        <div class="input-wrapper qty-input">
+                            <input type="number" name="item_quantity" class="small-input" placeholder="Qty" step="1" value="{{ item.quantity if item.quantity else '' }}">
+                        </div>
+                        <input type="number" name="item_price" class="small-input" placeholder="Price" step="0.01" value="{{ item.price|replace(',', '') }}" required>
+                        <button type="button" class="remove-item-btn">×</button>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" id="add-item-btn" class="btn btn-secondary">+ Add Item / Service</button>
+            </fieldset>
+
+            <fieldset>
+                <legend>Payment</legend>
+                 <div class="form-group">
+                    <label for="payment_method">Payment method:</label>
+                    <input type="text" id="payment_method" name="payment_method" value="{{ receipt.payment_method }}">
+                </div>
+                 <div class="form-group">
+                    <label for="custom_note">Note (Optional):</label>
+                    <textarea id="custom_note" name="custom_note" rows="2">{{ receipt.note }}</textarea>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Trigger the change event for all existing rows to set the correct initial view
+        document.querySelectorAll('.item-type-select').forEach(select => {
+            select.dispatchEvent(new Event('change'));
+        });
+    </script>
+</body>
+</html>

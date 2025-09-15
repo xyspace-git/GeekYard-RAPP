@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Orbitron:wght@700&family=Poppins:wght@400;700&display=swap');
+
+/* --- General & Form Styles --- */
+:root {
+    --brand-purple: #6c5ce7;
+    --dark-gray: #2d3436;
+    --mid-gray: #636e72;
+    --light-gray: #f2f2f2;
+    --border-gray: #dfe6e9;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #e9e9e9;
+    color: var(--dark-gray);
+    margin: 0;
+    padding: 2rem;
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.form-header { text-align: center; margin-bottom: 2rem; }
+.logo-form { max-height: 80px; }
+fieldset { border: 1px solid var(--border-gray); border-radius: 4px; padding: 1rem; margin-bottom: 1.5rem; }
+legend { font-weight: 700; color: var(--brand-purple); padding: 0 0.5rem; }
+.form-group { margin-bottom: 1rem; }
+label { display: block; margin-bottom: 0.5rem; font-weight: 700; }
+input[type="text"], input[type="email"], input[type="number"], select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-gray);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.item-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+.item-row input[type="text"] { flex-grow: 1; }
+.small-input { width: 80px !important; }
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
+}
+.btn-primary { background-color: var(--brand-purple); color: white; font-size: 1rem;}
+.btn-secondary { background-color: var(--mid-gray); color: white;}
+#add-item-btn { margin-top: 1rem; width: auto;}
+.remove-item-btn {
+    background: #e74c3c; color: white; border: none; border-radius: 50%; width: 15% !important; height: 25px;
+    cursor: pointer; font-weight: bold; line-height: 25px; text-align: center; padding: 0;
+}
+
+/* --- Receipt Styles --- */
+.receipt-container {
+    max-width: 800px;
+    width: 100%;
+    min-height: 1000px;
+    margin: 2rem auto;
+    background: white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    padding: 4rem;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.receipt-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3rem; }
+.logo-area { display: flex; align-items: center; gap: 15px; }
+.logo-receipt { max-height: 90px; }
+.receipt-title { text-align: right; }
+.receipt-no { font-size: 1rem; font-weight: 700; margin: 0; }
+.receipt-title h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: 6rem;
+    margin: -1rem 0 0 0;
+    letter-spacing: 2px;
+}
+.details-section { margin-bottom: 3rem; border-top: 1px solid var(--border-gray); border-bottom: 1px solid var(--border-gray); padding: 1.5rem 0; }
+.date-area { margin-bottom: 1.5rem; }
+.info-grid { display: flex; justify-content: space-between; }
+.billed-to p, .from-info p { margin: 0.5rem 0 0 0; line-height: 1.6; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 1rem; }
+thead { background-color: var(--light-gray); }
+th { font-weight: 700; }
+tbody tr { border-bottom: 1px solid var(--border-gray); }
+tfoot .total-label { text-align: right; font-weight: 700; font-size: 1.2rem; }
+tfoot .total-amount { font-weight: 700; font-size: 1.2rem; }
+.payment-section { margin-top: 2rem; }
+
+/* --- Footer Curves --- */
+.receipt-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    pointer-events: none;
+}
+.curve-dark {
+    position: absolute;
+    bottom: -100px;
+    left: -15%;
+    width: 130%;
+    height: 200px;
+    background: var(--dark-gray);
+    border-radius: 50% 50% 0 0;
+}
+.curve-gray {
+    position: absolute;
+    bottom: -80px;
+    right: -20%;
+    width: 140%;
+    height: 200px;
+    background: #e0e0e0;
+    border-radius: 50% 50% 0 0;
+}
+
+/* --- Actions & Print Styles --- */
+.actions { text-align: center; margin-bottom: 1rem; display: flex; gap: 1rem; justify-content: center; }
+.actions .btn { width: auto; }
+@media print {
+    body { background-color: white; padding: 0; }
+    .form-container, .actions, .list-container, .menu-container { display: none; }
+    .receipt-container { margin: 0; box-shadow: none; width: 100%; max-width: 100%; }
+}
+
+/* --- List Page Styles --- */
+.list-container { max-width: 900px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.list-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+.list-table th, .list-table td { text-align: left; padding: 1rem; border-bottom: 1px solid var(--border-gray); }
+.list-table th { background-color: var(--light-gray); }
+.btn-view { background-color: var(--brand-purple); color: white; padding: 0.4rem 0.8rem; border-radius: 4px; text-decoration: none; font-size: 0.9rem; }
+.view-all-link { display: block; margin-top: 1rem; text-decoration: none; color: var(--brand-purple); font-weight: 700; }
+
+/* --- Menu Page Styles --- */
+.menu-container {
+    max-width: 600px;
+    margin: 4rem auto;
+    text-align: center;
+    background: white;
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.logo-menu {
+    max-height: 250px !important;
+    width: auto !important;
+    margin-bottom: 2rem;
+}
+.menu-container h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    border: 3px solid var(--brand-purple);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    display: inline-block;
+}
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.btn-large {
+    padding: 1.5rem;
+    font-size: 1.2rem;
+    width: 100%;
+}
+/* --- List Page Action Buttons --- */
+.list-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.list-actions .btn {
+    width: auto; /* Ensures buttons only take up the space they need */
+}
+/* --- Action Button Styles --- */
+.actions-cell {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.btn-edit {
+    background-color: #0984e3;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+.btn-delete {
+    background-color: #d63031;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+/* --- Search Form Styles --- */
+.search-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.search-form input {
+    flex-grow: 1; /* Allows the input to take up available space */
+}
+.search-form button {
+    width: auto; /* Overrides the default 100% width for this button */
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt App Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="menu-container">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo-menu">
+<h1>GEEKYARD</h1>
+        <div class="menu-options">
+            <a href="/new" class="btn btn-primary btn-large">📝 New Receipt</a>
+            <a href="/receipts" class="btn btn-secondary btn-large">📂 View Receipts</a>
+        </div>
+    </div>
+</body>
+</html>

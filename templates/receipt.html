@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt #{{ data.receipt_no }}</title>
+    <link rel="icon" type="image/png" href="static/images/favicon.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="actions">
+    <a href="/" class="btn btn-secondary">🏠 Back to Menu</a>
+    <button onclick="window.print()" class="btn btn-primary">Print Receipt</button>
+</div>
+    <div class="receipt-container">
+        <header class="receipt-header">
+            <div class="logo-area">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo-receipt">
+            </div>
+            <div class="receipt-title">
+                <p class="receipt-no">NO. {{ data.receipt_no }}</p>
+                <h2>INVOICE</h2>
+            </div>
+        </header>
+
+        <section class="details-section">
+            <div class="date-area">
+                <strong>Date:</strong> {{ data.date }}
+            </div>
+            <div class="info-grid">
+                <div class="billed-to">
+                    <strong>Billed to:</strong>
+                    <p>
+                        {{ data.customer_name }}<br>
+                        {{ data.customer_email }}
+                    </p>
+                </div>
+                <div class="from-info">
+                    <strong>From:</strong>
+                    <p>
+                        {{ data.from_name }}<br>
+                        {{ data.from_extra }}<br>
+                        {{ data.from_email }}
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="items-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item/Service</th>
+                        <th>Hours / Qty</th>
+                        <th>Price</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data.line_items %}
+                    <tr>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.unit_value }}</td>
+                        <td>{{ data.currency }}{{ item.price }}</td>
+                        <td>{{ data.currency }}{{ item.amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="total-label">Total</td>
+                        <td class="total-amount">{{ data.currency }}{{ data.total }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <section class="payment-section">
+            <p><strong>Payment method:</strong> {{ data.payment_method }}</p>
+            <p><strong>Note:</strong> {{ data.note }}</p>
+        </section>
+        
+        <!--<footer class="receipt-footer">
+            <div class="curve-gray"></div>
+            <div class="curve-dark"></div>
+        </footer>-->
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Receipts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="list-container">
+        <h1>All Saved Receipts</h1>
+
+<form method="get" action="{{ url_for('list_receipts') }}" class="search-form">
+    <input type="text" name="query" placeholder="Search by name or receipt #" value="{{ query or '' }}">
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+        <div class="list-actions">
+    <a href="/" class="btn btn-secondary">🏠 Back to Menu</a>
+    <a href="/new" class="btn btn-primary">+ Create New Receipt</a>
+</div>
+
+        <table class="list-table">
+            <thead>
+                <tr>
+                    <th>Receipt #</th>
+                    <th>Date</th>
+                    <th>Billed To</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for receipt in receipts %}
+                <tr>
+                    <td>{{ receipt.receipt_no }}</td>
+                    <td>{{ receipt.date }}</td>
+                    <td>{{ receipt.customer_name }}</td>
+                    <td>{{ receipt.currency }}{{ receipt.total }}</td>
+                    <td class="actions-cell">
+    <a href="{{ url_for('view_receipt', receipt_no=receipt.receipt_no) }}" class="btn-view">View</a>
+    <a href="{{ url_for('edit_receipt_form', receipt_no=receipt.receipt_no) }}" class="btn-edit">Edit</a>
+
+    <form action="{{ url_for('delete_receipt', receipt_no=receipt.receipt_no) }}" method="post" style="display: inline;">
+        <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this receipt?');">Delete</button>
+    </form>
+</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 2rem;">No receipts found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
