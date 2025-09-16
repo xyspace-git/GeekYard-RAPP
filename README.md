@@ -2,7 +2,6 @@
 
 A simple, locally hostable web application for creating, viewing, and managing receipts, built with Python and Flask.
 
-This entire application was rapidly prototyped and developed from an idea to a fully functional app in just 2 hours on the evening of September 15, 2025, with the assistance of Google's Gemini.
 
 ---
 ## ✨ Key Features
