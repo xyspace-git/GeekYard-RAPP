@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const itemRow = document.createElement('div');
         itemRow.classList.add('item-row');
         
-        // --- NEW: HTML for a row with a type selector ---
+        
         itemRow.innerHTML = `
             <select name="item_type" class="item-type-select">
                 <option value="service" selected>Service</option>
@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
         
         itemList.appendChild(itemRow);
 
-        // --- NEW: Add event listener to the new dropdown ---
         const typeSelect = itemRow.querySelector('.item-type-select');
         const hoursInputDiv = itemRow.querySelector('.hours-input');
         const qtyInputDiv = itemRow.querySelector('.qty-input');
@@ -36,19 +35,19 @@ document.addEventListener('DOMContentLoaded', function () {
             if (this.value === 'service') {
                 hoursInputDiv.style.display = 'block';
                 qtyInputDiv.style.display = 'none';
-                hoursInput.required = true; // Service requires hours
-                qtyInput.required = false;  // and not quantity
-                qtyInput.value = '';        // Clear the hidden value
-            } else { // 'item'
+                hoursInput.required = true; 
+                qtyInput.required = false; 
+                qtyInput.value = '';       
+            } else {
                 hoursInputDiv.style.display = 'none';
                 qtyInputDiv.style.display = 'block';
-                hoursInput.required = false; // Item does not require hours
-                qtyInput.required = true;   // but does require quantity
-                hoursInput.value = '';      // Clear the hidden value
+                hoursInput.required = false; 
+                qtyInput.required = true;   
+                hoursInput.value = '';     
             }
         });
 
-        // Trigger the change event to set the initial state correctly
+      
         typeSelect.dispatchEvent(new Event('change'));
 
         itemRow.querySelector('.remove-item-btn').addEventListener('click', function() {
@@ -56,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Add one item row to start with
+    
     createItemRow();
 
     addItemBtn.addEventListener('click', createItemRow);
