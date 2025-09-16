@@ -43,4 +43,4 @@ A simple, locally hostable web application for creating, viewing, and managing r
 
 * **Backend**: [Python](https://www.python.org/) with the [Flask](https://flask.palletsprojects.com/) framework
 * **Frontend**: HTML, CSS, and vanilla JavaScript
-* **Assisted by**: [Google Gemini](https://gemini.google.com/)
+* **ReadMe by**: [Google Gemini](https://gemini.google.com/)
