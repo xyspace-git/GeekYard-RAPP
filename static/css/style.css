@@ -186,7 +186,7 @@ tfoot .total-amount { font-weight: 700; font-size: 1.2rem; }
 }
 
 .list-actions .btn {
-    width: auto; /* Ensures buttons only take up the space they need */
+    width: auto;
 }
 /* --- Action Button Styles --- */
 .actions-cell {
@@ -223,8 +223,8 @@ tfoot .total-amount { font-weight: 700; font-size: 1.2rem; }
     margin-bottom: 2rem;
 }
 .search-form input {
-    flex-grow: 1; /* Allows the input to take up available space */
+    flex-grow: 1;
 }
 .search-form button {
-    width: auto; /* Overrides the default 100% width for this button */
+    width: auto; 
 }
