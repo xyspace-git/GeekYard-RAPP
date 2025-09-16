@@ -4,12 +4,10 @@ from flask import Flask, render_template, request, abort, redirect, url_for
 
 app = Flask(__name__)
 
-# --- CONFIGURATION ---
 CURRENCY = "₹" 
 COUNTER_FILE = 'receipt_count.txt'
 RECEIPTS_FILE = 'receipts.json'
 
-# --- Helper functions ---
 def read_counter():
     try:
         with open(COUNTER_FILE, 'r') as f:
@@ -34,8 +32,6 @@ def save_receipts(receipts):
 
 receipt_number_counter = read_counter()
 
-
-# --- NEW: Reusable function to process form data for both generating and updating receipts ---
 def process_form_data(form):
     """Processes form data from a request and returns a dictionary."""
     data = {
@@ -84,8 +80,6 @@ def process_form_data(form):
     return data
 
 
-# --- Routes ---
-
 @app.route('/')
 def home():
     """Renders the main menu page."""
@@ -120,7 +114,6 @@ def view_receipt(receipt_no):
         abort(404)
     return render_template('receipt.html', data=receipt)
 
-# This function now uses the helper function, but its core logic is unchanged.
 @app.route('/generate', methods=['POST'])
 def generate_receipt():
     """Processes form data, saves the receipt, and displays it."""
@@ -136,7 +129,7 @@ def generate_receipt():
         "from_extra": "Geek Yard - XSN",
         "from_email": "Network.xyspace@gmail.com",
         "currency": CURRENCY,
-        **processed_data  # Unpacks the processed data into this dictionary
+        **processed_data
     }
     
     all_receipts = load_receipts()
@@ -146,11 +139,8 @@ def generate_receipt():
     receipt_number_counter += 1
     write_counter(receipt_number_counter)
     
-    # Redirect to the view page for the newly created receipt
     return redirect(url_for('view_receipt', receipt_no=receipt_data['receipt_no']))
 
-
-# --- NEW LOGIC: Route to show the edit form ---
 @app.route('/edit/<receipt_no>')
 def edit_receipt_form(receipt_no):
     all_receipts = load_receipts()
@@ -159,39 +149,29 @@ def edit_receipt_form(receipt_no):
         abort(404)
     return render_template('edit_receipt.html', receipt=receipt)
 
-# --- NEW LOGIC: Route to process the updated data ---
 @app.route('/update/<receipt_no>', methods=['POST'])
 def update_receipt(receipt_no):
     all_receipts = load_receipts()
-    # Find the index of the receipt we are updating
     receipt_index = next((i for i, r in enumerate(all_receipts) if r['receipt_no'] == receipt_no), None)
     
     if receipt_index is None:
         abort(404)
         
-    # Get the original receipt data
     original_receipt = all_receipts[receipt_index]
-    # Process the new form data
     processed_data = process_form_data(request.form)
-    
-    # Update the original receipt dictionary with the new data
     original_receipt.update(processed_data)
-    
-    # Save the modified list back to the file
     all_receipts[receipt_index] = original_receipt
     save_receipts(all_receipts)
     
     return redirect(url_for('list_receipts'))
 
-# --- NEW LOGIC: Route to delete a receipt ---
 @app.route('/delete/<receipt_no>', methods=['POST'])
 def delete_receipt(receipt_no):
     all_receipts = load_receipts()
-    # Create a new list that excludes the receipt to be deleted
     receipts_to_keep = [r for r in all_receipts if r['receipt_no'] != receipt_no]
     
     if len(all_receipts) == len(receipts_to_keep):
-        abort(404) # Abort if the receipt ID was not found
+        abort(404)
         
     save_receipts(receipts_to_keep)
     return redirect(url_for('list_receipts'))
