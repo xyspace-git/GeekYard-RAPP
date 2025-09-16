@@ -69,10 +69,10 @@
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script>
-        // Trigger the change event for all existing rows to set the correct initial view
         document.querySelectorAll('.item-type-select').forEach(select => {
             select.dispatchEvent(new Event('change'));
         });
     </script>
 </body>
+
 </html>
